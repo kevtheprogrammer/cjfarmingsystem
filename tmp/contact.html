@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+{% endblock meta %}
+
+{% block title %}
+Contact
+{% endblock title %}
+
+
+
+
+
+
+{% block body %}
+<div style="height:90px;width:100%;background-color:black"></div>
+ 
+	<!-- Home -->
+
+	<div class="home">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/regular.jpg' %}" data-speed="0.8"></div>
+		<div class="home_content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 offset-lg-3">
+						<!-- Post Comment -->
+						<div class="post_comment">
+							<div class="contact_form_container">
+								<form action="#">
+									<input type="text" class="contact_input contact_input_name" placeholder="Your Name" required="required">
+									<input type="email" class="contact_input contact_input_email" placeholder="Your Email" required="required">
+									<textarea class="contact_text" placeholder="Your Message" required="required"></textarea>
+									<button type="submit" class="contact_button">Send Message</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</div>
+
+{% endblock body %}
+
+
+{% block js %}
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/contact.js' %}"></script>
+{% endblock js %}
+
+
+
+ 
+
+ 
+
+
+

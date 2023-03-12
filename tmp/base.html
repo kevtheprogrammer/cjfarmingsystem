@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Demo project">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/jquery.mb.YTPlayer-3.1.12/jquery.mb.YTPlayer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
+    {% block meta %}
+    {% endblock meta %}
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+</head>
+<body>
+    <div class="super_container">
+
+        <!-- Header -->
+    
+        {% include 'header.html' %}
+        {% block body %}
+
+        {% endblock body %}
+        <!-- Footer -->
+	    {% include 'footer.html' %}
+    </div>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+    <script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+    <script src="{% static 'plugins/jquery.mb.YTPlayer-3.1.12/jquery.mb.YTPlayer.js' %}"></script>
+    <script src="{% static 'plugins/easing/easing.js' %}"></script>
+    <script src="{% static 'plugins/masonry/masonry.js' %}"></script>
+    <script src="{% static 'plugins/masonry/images_loaded.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    {% block js %}
+    {% endblock js %}
+    
+    <script>
+
+        const getLoc = () => {
+            const successCallback = (position) => {
+                var key = 'TH6CN4MJ74XYM8R8ZGNDT7QKV'
+                console.log(position);
+                fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/New%20York%20City%2CNY?unitGroup=us&key=${key}&contentType=json`, {
+                    "method": "GET",
+                    "headers": {
+                    }
+                    })
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+            };
+            
+            const errorCallback = (error) => {
+            console.log(error);
+            };
+            
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    
+        }
+        setTimeout(getLoc, 1000);
+    
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+ 
+
+

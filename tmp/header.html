@@ -1,0 +1,62 @@
+{% load static %}
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                    <div class="logo"><a href="{% url 'home' %}">CJFS</a></div>
+                    <nav class="main_nav">
+                        <ul>
+                            <!-- <li class="active"><a href="{% url 'home' %}">Home</a></li> -->
+                            <li class="active"><a href="{% url 'blog:home' %}">Blog</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div class="search_container ml-auto">
+
+                        <form action="#">
+                            <input type="search" class="header_search_input" required="required" placeholder="Type to Search...">
+                            <img class="header_search_icon" src="{% static 'images/search.png' %}" alt="">
+                        </form>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'account:logout' %}" class="btn btn-dark">Logout</a>
+                        {% else %}
+                        <form action="#">
+                          <a href="{% url 'account:signup' %}" class="btn btn-outline-light  mr-2">signup</a>
+                          <a href="{% url 'account:login' %}" class="btn btn-light">login</a>
+                        </form>
+                        {% endif %}
+                    </div>
+                    <div class="hamburger ml-auto menu_mm">
+                        <i class="fa fa-bars trans_200 menu_mm" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Menu -->
+<div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+    <div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+    <div class="logo menu_mm"><a href="{% url 'home' %}">CJFS</a></div>
+    <div class="search">
+        <form action="#">
+            <input type="search" class="header_search_input menu_mm" required="required" placeholder="Type to Search...">
+            <img class="header_search_icon menu_mm" src="{% static 'images/search_2.png' %}" alt="">
+        </form>
+        {% if user.is_authenticated %}
+        <a href="{% url 'account:logout' %}" class="mt-3 mt-md-0 btn btn-dark">Logout</a>
+        {% else %}
+        <form action="# " class="mt-3 mt-md-0">
+          <a href="{% url 'account:signup' %}" class="btn btn-outline-dark  mr-2">signup</a>
+          <a href="{% url 'account:login' %}" class="btn btn-dark">login</a>
+        </form>
+        {% endif %}
+    </div>
+    <nav class="menu_nav">
+        <ul class="menu_mm">
+            <li class="menu_mm"><a href="{% url 'blog:home' %}">Bog</a></li>   
+            <li class="menu_mm"><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+    </nav>
+</div>
