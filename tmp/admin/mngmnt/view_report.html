@@ -1,0 +1,58 @@
+{% extends 'admin/mngmnt/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-8 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Farming Season Report</h4>
+          <p class="card-description">
+            View monthly report
+          </p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>name</th>
+                  <th>crop rotation</th>
+                  <th>updated</th>
+                  <th>action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for obj in report %}
+              <tr>
+                  <td>{{obj.title}}</td>
+                  <td>{{obj.item}}</td>
+                  <td>{{obj.updated}}</td>
+                  <td>
+                  <a href="{{obj.get_absolute_url}}">
+
+                      <label class="badge badge-danger">View</label>
+                  </a>
+                  </td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="col-md-4 col-12 card p-5" >
+    <div class="h4">Add Monthly Report</div>
+    <form action="/administration/report/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if User.avatar %}
+        <img src="{{User.avatar.url}}" style="width:200px;border-radius:4%;height:200px;" alt="">
+        {% endif  %}
+        {{form|crispy}} 
+        <button type="submit" class=" col-12 btn btn-primary text-light">Submit</button>
+  </form>
+</div>
+{% endblock %}

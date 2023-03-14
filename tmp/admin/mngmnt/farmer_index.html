@@ -1,0 +1,35 @@
+{% extends 'admin/mngmnt/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-12 card p-5" >
+            <div class="h4">Farmer Details</div>
+            <form action="/administration/farmer/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if User.avatar %}
+                <img src="{{User.avatar.url}}" style="width:200px;border-radius:4%;height:200px;" alt="">
+                {% endif  %}
+                {{form|crispy}} 
+                <button type="submit" class=" col-12 btn btn-primary text-light">Submit</button>
+            </form>
+        </div>
+        <div class="col card px-4 py-5 m-2 my-md-0">
+            <div class="h4">Farm Plot Details</div>
+            <form action="/administration/farmer/" method="post">
+                {% csrf_token %}
+                {{plot|crispy}}
+                <button type="submit" class=" col-12 btn btn-primary text-light">Submit</button>
+
+            </form>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col card p-3 my-2">
+            <iframe class="ruonded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.22783184784!2d28.27051041393021!3d-15.472172519231634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1940f2e90f591823%3A0x362cbc536aaf4861!2sYork%20Farm!5e0!3m2!1sen!2szm!4v1678713856845!5m2!1sen!2szm" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+{% endblock content %}

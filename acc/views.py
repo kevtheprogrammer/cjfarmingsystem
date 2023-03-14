@@ -14,8 +14,10 @@ from django.contrib.auth import login , logout
 from .tokens import email_activation_token
 from .models import User
 from .userForms import SignUpForm
+from acc.userForms import UserEditForm
+from farmer.models import FarmPlotModel
 
- 
+
 class SignUpView(View):
     form_class = SignUpForm
     template_name = 'registration/signup.html'
@@ -33,7 +35,7 @@ class SignUpView(View):
             user = form.save(commit=False)
             user.is_active = False #u need to deactivate account till it is confirmed
             user.save()
-
+            FarmPlotModel.objects.create(name="default",size="1 x 1(acres)",farm_location="default",user=user)
             #send activation email
 
             this_site = get_current_site(request)

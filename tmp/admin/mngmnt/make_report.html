@@ -1,0 +1,21 @@
+{% extends 'admin/mngmnt/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-12 card p-5" >
+            <div class="h4">Monthly Report</div>
+            <form action="/administration/report/{{object.id}}/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if User.avatar %}
+                <img src="{{User.avatar.url}}" style="width:200px;border-radius:4%;height:200px;" alt="">
+                {% endif  %}
+                {{form|crispy}} 
+                <button type="submit" class=" col-12 btn btn-primary text-light">Submit</button>
+            </form>
+        </div>
+ 
+    </div>
+ 
+{% endblock content %}

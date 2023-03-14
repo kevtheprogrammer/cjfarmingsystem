@@ -50,6 +50,7 @@ THIRD_PARTY_APP =  [
     'crispy_forms', 
     'django_countries', 
     'phonenumber_field',
+    'crispy_bootstrap4',
     ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -135,7 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-LOGIN_URL = 'login'
+LOGIN_URL = '/account/login'
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/account/login'
