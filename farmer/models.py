@@ -35,7 +35,9 @@ class CropModel(models.Model):
     status          = models.CharField(max_length = 1, choices = Medium )
     timestamp       = models.DateField(auto_now=False, auto_now_add=True)
     updated         = models.DateField(auto_now=True, auto_now_add=False)
- 
+    link            = models.URLField(blank=True,null=True,max_length=200)
+    upload          = models.FileField( blank=True,null=True,upload_to='upload/crop/', max_length=1000)
+    
     def __str__(self):
         return f'{self.name}'
 

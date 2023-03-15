@@ -283,11 +283,13 @@
             "></div>
             <div class="col">
               <div class="h4">{{c.name}}</div>
+              <a href="{{c.link}}" target="_blank">Resources</a>
               <p>maket value: ZMK{{c.market_value}}</p>
               <p>{{c.description}}</p>
               <p><strong>Optimum Growing Condition</strong></p>
               <p >{{c.ogc}}</p>
               <p >{{c.updated}}</p>
+              <a class="btn btn-primary" href='{{c.upload}}' download >download files</a>
             </div>
           </div>
         {% endfor %}
