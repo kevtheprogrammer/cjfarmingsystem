@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render,redirect
+from django.contrib.auth.models import Group
 from django.views.generic.edit import CreateView, DeleteView, UpdateView 
 from django.views.generic import ListView , DetailView ,View,TemplateView
 from . models import *
@@ -9,14 +10,54 @@ from acc.models import *
 class AdminView(TemplateView):
     template_name = "admin/mngmnt/index.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get(self, request,**kwargs):
         me = self.request.user
-        context["csm"] = CropSeasonModel.objects.all()
-        context["cm"] = CropModel.objects.all()
-        context["users"] = User.objects.all()
-        context["crm"] = CropRotationModel.objects.filter(farmer=me)
-        return context
+        group = None
+        if me.groups.exists():
+            group = me.groups.all()[0].name
+        if group == 'Farmers':
+            context = super().get_context_data(**kwargs)
+            cnt = {   
+                "cm"    :  CropModel.objects.all(),
+                "csm"   :  CropSeasonModel.objects.all(),
+                "users" :  User.objects.all(),
+                "crm"   :  CropRotationModel.objects.filter(farmer=me),
+            }
+            return render(request,self.template_name, cnt)
+        return redirect('farmer:registration')
+            
+class RegistraionView(CreateView):
+    model = User
+    form_class = UserEditForm
+    template_name = "admin/mngmnt/registration.html"
+    
+    def get(self, request, *args, **kwargs):
+        me = self.request.user
+        context = {
+            "form":self.form_class(instance=me),
+        } 
+        return render(request,self.template_name,context)
+
+    def post(self, request, *args, **kwargs): 
+        me = self.request.user
+        forms = self.form_class(self.request.POST,self.request.FILES,instance=me)
+        group = None
+        if forms.is_valid():
+            forms.save()
+            if me.groups.exists():
+                group = me.groups.all()[0].name
+            if group != 'Farmers':
+                my_group = Group.objects.get(name='Farmers') 
+                my_group.user_set.add(me)
+                me.email_farmer_registration(
+                    subject = "Request to Register as a Farmer", 
+                    message = "Request to Register as a Farmer was success do login at http://localhost:8000/administration/ to access our services", 
+                    from_email="cityofjehovarfarmingsystem@support.com"
+                )
+            return redirect("farmer:index")
+        return render(request,self.template_name)
+
+
 
 class FarmerDetiails(CreateView):
     template_name = 'admin/mngmnt/farmer_index.html'
@@ -27,7 +68,6 @@ class FarmerDetiails(CreateView):
         me = self.request.user
         
         myplot = FarmPlotModel.objects.get(user__id=me.id)
-        print(myplot)
         context = {
             "form":self.form_class(instance=me),
             "User":User.objects.get(id=me.id),

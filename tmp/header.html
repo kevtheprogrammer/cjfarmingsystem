@@ -19,6 +19,7 @@
                             <img class="header_search_icon" src="{% static 'images/search.png' %}" alt="">
                         </form>
                         {% if user.is_authenticated %}
+                        <a href="{% url 'farmer:index' %}" class="btn btn-outline-light">Dashboard</a>
                         <a href="{% url 'account:logout' %}" class="btn btn-dark">Logout</a>
                         {% else %}
                         <form action="#">
@@ -45,6 +46,7 @@
             <img class="header_search_icon menu_mm" src="{% static 'images/search_2.png' %}" alt="">
         </form>
         {% if user.is_authenticated %}
+        <a href="{% url 'farmer:index' %}" class="btn btn-outline-dark">Dashboard</a>
         <a href="{% url 'account:logout' %}" class="mt-3 mt-md-0 btn btn-dark">Logout</a>
         {% else %}
         <form action="# " class="mt-3 mt-md-0">

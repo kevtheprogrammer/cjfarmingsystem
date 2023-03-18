@@ -61,3 +61,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         print(subject, message, from_email,)
         # send_mail(subject, message, from_email, [self.email], **kwargs)
         
+
+    def email_farmer_registration(self, subject, message, from_email=None, **kwargs):
+        '''
+        Sends an email to this User.
+        '''
+        print('\n',subject, '\n', message,'\n', from_email,'\n')
+        # send_mail(subject, message, from_email, [self.email], **kwargs)
+        

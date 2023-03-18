@@ -29,7 +29,8 @@ class UserEditForm(forms.ModelForm):
             'avatar',
             'email', 
             'first_name', 
-            'last_name', 
+            'last_name',
+            'nrc',
             'phone', 
             'location', 
             'country'
